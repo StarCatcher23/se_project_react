@@ -1,12 +1,12 @@
-import "./ItemCard.css"
+import "./ItemCard.css";
 
-function ItemCard({ item }) {
-  return (
-    <div className="item-card">
-      <img className="item-card__image" src={item.link} alt={item.name} />
-      <h2 className="item-card__title">{item.name}</h2>
-    </div>
-  );
+function ItemCard({item}) {
+    return (
+        <li className="card">
+            <h2 className="card__name"> {item.name} </h2>
+            <img className="card__image" src={item.link} alt={item.name}/>
+        </li>
+    );
 }
 
 export default ItemCard;

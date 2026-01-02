@@ -1,41 +1,29 @@
-.items {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.card {
+    width: 323px;
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
-
-.item-card {
-  width: 323px;
-  height: 326px;
-  background-color: #f2f2f2;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  position: relative;
-  display: flex;
-  flex-direction:column-reverse;
-  align-items:center;
-  justify-content:space-between;
+.card__name {
+    position: absolute;
+    top: 15px;
+    margin: 0;;
+    background-color:#FFF ;
+    border-radius: 4px;
+    gap: 8px;
+    font: Cabinet Grotesk;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0;
 }
 
-/* Item image */
-.item-card__image {
-  max-width: 80%;
-  max-height: 80%;
-  object-fit: fill;
+.card__image{
+    width: 100%;
+    border-radius: 12px;
+    border: 1px;
+    border-style: solid;
+    border-color: #000000 30%;
 }
-
-/* Category label (T-Shirt, Shorts, etc.) */
-.item-card__name {
-  font: Cabinet Grotesk;
-  font-size: 16px;
-  font-weight: 700;
-  font-style: bold;
-  position: absolute;
-  top: 12px;
-  padding: 4px 12px;
-  background-color: #ffffff;
-  border-radius: 8px;
-
