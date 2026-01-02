@@ -1,0 +1,66 @@
+.modal {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0000004d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.modal__title {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  margin: 0;
+  bottom: 80px;
+}
+
+
+.modal__close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+}
+
+
+.modal__content {
+    background-color: #FFF;
+    position: relative;
+    padding: 28 28px 36px;
+    max-width: 496px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 700;
+    font-style: Bold;
+    line-height: 20px;
+    letter-spacing: 0%;
+}
+
+.modal__form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.modal__input{
+    display: block;
+}
+
+.modal__radio-buttons {
+    border: none;
+    padding: 0;
+    display: flex;
+    border-radius: 4px;
+    width: 124px;
+    height: 36px;
+top: 8px;
+right: 16px;
+bottom: 8px;
+left: 16px;
+}

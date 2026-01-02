@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.css'
 import Header from '../Header/Header';
 import Main from '../Main/main';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <Header/>
     <Main weatherData = {weatherData} />
   </div>
+  <ModalWithForm/>
   </div>
   );
 }
