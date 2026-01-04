@@ -1,18 +1,18 @@
 .modal {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #0000004d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
 }
 
 .modal_opened {
-    visibility: visible;
+  visibility: visible;
 }
 
 .modal__title {
@@ -20,52 +20,66 @@
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
-  margin: 0;
-  bottom: 80px;
+  margin: 0 0 24px;
 }
-
 
 .modal__close {
-    position: absolute;
-    top: 20px;
-    right: 28px;
+  position: absolute;
+  top: 20px;
+  right: 28px;
 }
-
 
 .modal__content {
-    background-color: #FFF;
-    position: relative;
-    padding: 28 28px 36px;
-    max-width: 496px;
-    box-sizing: border-box;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 700;
-    font-style: Bold;
-    line-height: 20px;
-    letter-spacing: 0%;
+  background-color: #fff;
+  position: relative;
+  padding: 28px 28px 36px;
+  max-width: 496px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.modal__form{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
 }
 
-.modal__input{
-    display: block;
+.modal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  line-height: 20px;
 }
 
-.modal__radio-buttons {
-    border: none;
-    padding: 0;
-    display: flex;
-    border-radius: 4px;
-    width: 124px;
-    height: 36px;
-top: 8px;
-right: 16px;
-bottom: 8px;
-left: 16px;
+.modal__input:focus {
+  border-bottom-color: #000;
 }
 
+.modal__radio-button {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal__label_type_radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.modal__input_type_radio {
+  accent-color: #000;
+}
+
+.modal__label {
+  display: block;
+}

@@ -1,3 +1,80 @@
+export const weatherOptions = [
+  {
+    day: true,
+    condition: "clear",
+    URL: new URL("../assets/day/clearday.png", import.meta.url).href,
+  },
+  {
+    day: true,
+    condition: "clouds",
+    URL: new URL("../assets/day/cloudyday.png", import.meta.url).href,
+  },
+  {
+    day: true,
+    condition: "fog",
+    URL: new URL("../assets/day/fogday.png", import.meta.url).href,
+  },
+  {
+    day: true,
+    condition: "rain",
+    URL: new URL("../assets/day/rainyday.png", import.meta.url).href,
+  },
+  {
+    day: true,
+    condition: "storm",
+    URL: new URL("../assets/day/stormday.png", import.meta.url).href,
+  },
+  {
+    day: true,
+    condition: "snow",
+    URL: new URL("../assets/day/snowday.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "snow",
+    URL: new URL("../assets/night/snownight.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "rain",
+    URL: new URL("../assets/night/rainynight.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "storm",
+    URL: new URL("../assets/night/stormnight.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "rain",
+    URL: new URL("../assets/night/rainynight.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "fog",
+    URL: new URL("../assets/night/fognight.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "clear",
+    URL: new URL("../assets/night/clearnight.png", import.meta.url).href,
+  },
+  {
+    day: false,
+    condition: "clouds",
+    URL: new URL("../assets/night/cloudynight.png", import.meta.url).href,
+  },
+];
+
+export const defaultWeatherOptions = {
+  day: {
+    url: new URL("../assets/day/defaultday.png", import.meta.url).href,
+  },
+  night: {
+    url: new URL("../assets/night/defaultnight.png", import.meta.url).href,
+  },
+};
+
 // The utils files contain default clothing items
 const defaultClothingItems = [
   {
