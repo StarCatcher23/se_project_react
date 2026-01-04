@@ -36,17 +36,15 @@
 }
 
 .modal__close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  background: white;
-  border: 1px solid #ccc;
-  padding: 4px 8px;
-
-  font-size: 12px;
+  background-image: url("../../assets/closeicon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px; /* adjust size as needed */
+  height: 24px; /* adjust size as needed */
+  border: none;
+  background-color: transparent;
   cursor: pointer;
-  z-index: 2;
 }
 
 .modal__footer {

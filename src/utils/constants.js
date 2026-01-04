@@ -21,8 +21,8 @@ export const weatherOptions = [
   },
   {
     day: true,
-    condition: "storm",
-    URL: new URL("../assets/day/stormday.png", import.meta.url).href,
+    condition: "thunderstorm",
+    URL: new URL("../assets/day/thunderstormday.png", import.meta.url).href,
   },
   {
     day: true,
@@ -41,8 +41,8 @@ export const weatherOptions = [
   },
   {
     day: false,
-    condition: "storm",
-    URL: new URL("../assets/night/stormnight.png", import.meta.url).href,
+    condition: "thunderthunderstorm",
+    URL: new URL("../assets/night/thunderstormnight.png", import.meta.url).href,
   },
   {
     day: false,
@@ -68,10 +68,10 @@ export const weatherOptions = [
 
 export const defaultWeatherOptions = {
   day: {
-    url: new URL("../assets/day/defaultday.png", import.meta.url).href,
+    URL: new URL("../assets/day/defaultday.png", import.meta.url).href,
   },
   night: {
-    url: new URL("../assets/night/defaultnight.png", import.meta.url).href,
+    URL: new URL("../assets/night/defaultnight.png", import.meta.url).href,
   },
 };
 
@@ -140,7 +140,7 @@ const defaultClothingItems = [
   {
     _id: 11,
     name: "Shorts",
-    weather: "Hot",
+    weather: "hot",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Shorts.png?etag=d728c496643f610de8d8fea92dd915ba",
   },
   {
