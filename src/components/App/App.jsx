@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Switch from "../Switch/Switch";
 
 import "./App.css";
 import { coordinates, APIKey } from "../../utils/constants";
@@ -9,6 +10,7 @@ import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import Footer from "../Footer/Footer";
 import { defaultClothingItems } from "../../utils/constants";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function App() {
   const [items, setitems] = useState(defaultClothingItems);
