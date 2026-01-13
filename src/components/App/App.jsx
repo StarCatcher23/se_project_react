@@ -18,8 +18,13 @@ function App() {
     type: "",
     temp: { F: 999, C: 999 },
     city: "",
+    condition: "",
+    isDay: false,
   });
 
+  const isWeatherDataLoaded = weatherData.type !== "";
+
+  console.log(weatherData);
   const [activeModal, setActiveModal] = useState(""); // or useState(null)
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
