@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { coordinates, APIKey } from "../../utils/constants";
 import Header from "../Header/Header";
@@ -79,11 +79,26 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Main
-            weatherData={weatherData}
-            clothingItems={clothingItems}
-            handleCardClick={handleCardClick}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isWeatherDataLoaded ? (
+                  <Main
+                    weatherData={weatherData}
+                    clothingItems={clothingItems}
+                    handleCardClick={handleCardClick}
+                  />
+                ) : (
+                  <p>Loading weather data...</p>
+                )
+              }
+            />
+            <Route
+              path="/profile"
+              element={<p>Profile page under construction</p>}
+            />
+          </Routes>
           <Footer />
         </div>
         {/* <ModalWithForm
