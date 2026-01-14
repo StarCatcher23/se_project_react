@@ -5,6 +5,7 @@ function ModalWithForm({
   name,
   buttonText = "Save ",
   isOpen,
+  onSubmit, // ← add this
   onClose,
   children,
 }) {
@@ -17,7 +18,7 @@ function ModalWithForm({
           type="button"
           className="modal__close"
         ></button>
-        <form className="modal__form" name={name}>
+        <form onSubmit={onSubmit} className="modal__form" name={name}>
           {children}
           <button type="submit" className="modal__submit">
             {buttonText}

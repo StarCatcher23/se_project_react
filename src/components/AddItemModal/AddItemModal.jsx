@@ -1,12 +1,25 @@
+import { useForm } from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const AddItemModal = ({ isOpen, handleSubmit, onClose }) => {
+const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
+  const defaultValues = {
+    name: "",
+    imageUrl: "",
+    weather: "",
+  };
+  const { values, handleChange } = useForm(defaultValues);
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    onAddItem(values);
+  }
+
   return (
     <ModalWithForm
       title="New garment"
       name="new-card"
       buttonText="Add garment"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit} // ← correct prop name
       isOpen={isOpen}
       onClose={onClose}
     >
@@ -22,6 +35,8 @@ const AddItemModal = ({ isOpen, handleSubmit, onClose }) => {
           required
           minLength="1"
           maxLength="30"
+          value={values.name}
+          onChange={handleChange}
         />
       </label>
 
@@ -33,6 +48,8 @@ const AddItemModal = ({ isOpen, handleSubmit, onClose }) => {
           id="imageUrl"
           placeholder="Image URL"
           required // Add this!
+          value={values.URL}
+          onChange={handleChange}
         />
       </label>
       <fieldset className="modal__radio-button">
@@ -43,6 +60,7 @@ const AddItemModal = ({ isOpen, handleSubmit, onClose }) => {
             type="radio"
             name="weather"
             value="hot"
+            onChange={handleChange}
             required // Add this to ONE radio button
           />
           Hot
@@ -53,6 +71,8 @@ const AddItemModal = ({ isOpen, handleSubmit, onClose }) => {
             type="radio"
             name="weather"
             value="warm"
+            onChange={handleChange}
+            required // Add this to ONE radio button
           />
           Warm
         </label>
@@ -62,6 +82,8 @@ const AddItemModal = ({ isOpen, handleSubmit, onClose }) => {
             type="radio"
             name="weather"
             value="cold"
+            onChange={handleChange}
+            required
           />
           Cold
         </label>

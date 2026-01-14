@@ -8,9 +8,9 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import Footer from "../Footer/Footer";
-import { defaultClothingItems } from "../../utils/constants";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import { defaultClothingItems } from "../../utils/constants";
 
 function App() {
   const [items, setitems] = useState(defaultClothingItems);
@@ -28,6 +28,7 @@ function App() {
   const [activeModal, setActiveModal] = useState(""); // or useState(null)
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -44,6 +45,22 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+  };
+
+  const onAddItem = (inputValues) => {
+    //call the fetch function
+    //.then()..all the stuff below
+    const newCardData = {
+      _id: Date.now(),
+      name: inputValues.name,
+      link: inputValues.imageUrl,
+      weather: inputValues.weather,
+    };
+    //don't use NewCarddata directly, use the function form of setState
+    //the _id will be included in the response data
+    setClothingItems([...clothingItems, newCardData]);
+    closeActiveModal();
+    //.catch()..handle errors
   };
 
   useEffect(() => {
@@ -64,7 +81,7 @@ function App() {
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
           <Main
             weatherData={weatherData}
-            clothingItems={items}
+            clothingItems={clothingItems}
             handleCardClick={handleCardClick}
           />
           <Footer />
@@ -80,8 +97,8 @@ function App() {
           activeModal={activeModal}
           onClose={closeActiveModal}
           isOpen={activeModal === "add-garment"}
+          onAddItem={onAddItem}
         />
-
         <ItemModal
           activeModal={activeModal}
           card={selectedCard}
