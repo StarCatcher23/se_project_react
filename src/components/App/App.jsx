@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
+import Profile from "../Profile/Profile";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import Footer from "../Footer/Footer";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
@@ -96,7 +97,12 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<p>Profile page under construction</p>}
+              element={
+                <Profile
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
             />
           </Routes>
           <Footer />
