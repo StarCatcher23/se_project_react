@@ -101,6 +101,30 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "women boot",
+      "imageUrl": "",
+      "weather": "warm",
+      "_id": 19
+    },
+    {
+      "name": "women boot",
+      "imageUrl": "",
+      "weather": "warm",
+      "_id": 20
+    },
+    {
+      "name": "women boot",
+      "imageUrl": "",
+      "weather": "warm",
+      "_id": 21
+    },
+    {
+      "_id": 1768452106225,
+      "name": "women sweater",
+      "imageUrl": "https://image2url.com/r2/default/images/1768452087961-7f3ffe6f-1ba8-40dc-b50c-fafc8710e80e.png",
+      "weather": "cold"
     }
   ]
 }

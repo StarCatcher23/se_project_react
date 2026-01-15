@@ -8,7 +8,6 @@ export default function Profile({ clothingItems, onCardClick }) {
     <section className="profile">
       <Sidebar />
       <ClothesSection onCardClick={onCardClick} clothingItems={clothingItems} />
-      console.log("clothingItems in ClothesSection:", clothingItems);
     </section>
   );
 }

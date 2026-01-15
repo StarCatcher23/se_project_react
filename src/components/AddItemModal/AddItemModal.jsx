@@ -40,15 +40,16 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
         />
       </label>
 
-      <label htmlFor="imageUrl" className="modal__label">
-        Image URL
+      <label className="modal__label">
+        Image
         <input
           type="url"
-          className="modal__input"
-          id="imageUrl"
+          name="imageUrl"
+          id="clothing-imageUrl"
+          className="modal__input modal__input_type_url"
           placeholder="Image URL"
           required // Add this!
-          value={values.URL}
+          value={values.imageUrl}
           onChange={handleChange}
         />
       </label>

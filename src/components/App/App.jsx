@@ -9,12 +9,10 @@ import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import Footer from "../Footer/Footer";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import { getItems } from "../../utils/api";
+import { addItem, getItems, removeItem } from "../../utils/api";
 
 function App() {
-  const [items, setitems] = useState();
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: 999, C: 999 },
@@ -23,21 +21,20 @@ function App() {
     isDay: false,
   });
 
-  const isWeatherDataLoaded = weatherData.type !== "";
-
-  console.log(weatherData);
-  const [activeModal, setActiveModal] = useState(""); // or useState(null)
+  const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
 
+  const isWeatherDataLoaded = weatherData.type !== "";
+
   const handleToggleSwitchChange = () => {
-    setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
+    setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
   };
 
   const handleCardClick = (card) => {
-    setActiveModal("preview");
     setSelectedCard(card);
+    setActiveModal("preview");
   };
 
   const handleAddClick = () => {
@@ -48,20 +45,31 @@ function App() {
     setActiveModal("");
   };
 
+  // ADD ITEM
   const onAddItem = (inputValues) => {
-    //call the fetch function
-    //.then()..all the stuff below
     const newCardData = {
       _id: Date.now(),
       name: inputValues.name,
-      link: inputValues.imageUrl,
+      imageUrl: inputValues.imageUrl,
       weather: inputValues.weather,
     };
-    //don't use NewCarddata directly, use the function form of setState
-    //the _id will be included in the response data
-    setClothingItems([...clothingItems, newCardData]);
-    closeActiveModal();
-    //.catch()..handle errors
+
+    addItem(newCardData)
+      .then((data) => {
+        setClothingItems((prev) => [data, ...prev]); // newest first
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Something went wrong:", err));
+  };
+
+  // DELETE ITEM
+  const handleDeleteItem = (id) => {
+    removeItem(id)
+      .then(() => {
+        setClothingItems((prev) => prev.filter((item) => item._id !== id));
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Delete failed:", err));
   };
 
   useEffect(() => {
@@ -71,9 +79,10 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch(console.error);
+
     getItems()
       .then((data) => {
-        setClothingItems(data);
+        setClothingItems([...data].reverse()); // newest first
       })
       .catch(console.error);
   }, []);
@@ -85,6 +94,7 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+
           <Routes>
             <Route
               path="/"
@@ -100,35 +110,33 @@ function App() {
                 )
               }
             />
+
             <Route
               path="/profile"
               element={
                 <Profile
-                  onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  onCardClick={handleCardClick}
                 />
               }
             />
           </Routes>
+
           <Footer />
         </div>
-        {/* <ModalWithForm
-          title="New garment"
-          buttonText="Add garment"
-          activeModal={activeModal}
-          onClose={closeActiveModal}
-          isOpen={activeModal === "add-garment"}
-        ></ModalWithForm> */}
+
         <AddItemModal
           activeModal={activeModal}
           onClose={closeActiveModal}
           isOpen={activeModal === "add-garment"}
           onAddItem={onAddItem}
         />
+
         <ItemModal
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
+          onDelete={handleDeleteItem}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
