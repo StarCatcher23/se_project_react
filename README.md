@@ -39,5 +39,5 @@ Currently, two official plugins are available:
 
 ## Project Pitch Video
 
-Check out [this video](ADD_LINK_HERE), where I describe my
+Check out [this video](https://drive.google.com/file/d/1BczF_cIciTFoahsjk5_IiJ8aIczqbMwT/view?usp=drive_link), where I describe my
 project and some challenges I faced while building it.
