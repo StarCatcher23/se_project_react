@@ -7,9 +7,7 @@ import avatar from "../../assets/avatar.svg";
 function Header({ handleAddClick, weatherData }) {
   const location = useLocation();
 
-  // If you're on /profile, clicking the username goes home
-  // Otherwise, it goes to /profile
-  const userLinkTarget = location.pathname === "/profile" ? "/" : "/profile";
+  const userLinkTarget = "/profile";
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",

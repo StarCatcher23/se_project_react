@@ -41,7 +41,7 @@
   left: 28px;
 }
 
-.toggle-switch__checkbox:not(checked) ~ .toggle-switch__text-F {
+.toggle-switch__checkbox:not(:checked) ~ .toggle-switch__text_F {
   color: white;
 }
 
