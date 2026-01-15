@@ -1,3 +1,7 @@
+.clothes-section {
+  flex-grow: 1;
+}
+
 .clothes-section__row {
   display: flex;
   align-items: center;
