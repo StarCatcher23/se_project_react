@@ -1,11 +1,11 @@
 import { useForm } from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
+const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
   const defaultValues = {
-    name: "...",
-    imageUrl: "...",
-    weather: "...",
+    name: "",
+    imageUrl: "",
+    weather: "",
   };
 
   const { values, handleChange } = useForm(defaultValues);
@@ -19,7 +19,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     <ModalWithForm
       title="New garment"
       name="new-card"
-      buttonText="Add garment"
+      buttonText={isLoading ? "Saving..." : "Add garment"}
       onSubmit={handleSubmit}
       isOpen={isOpen}
       onClose={onClose}

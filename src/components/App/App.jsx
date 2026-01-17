@@ -27,9 +27,9 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
-  // Your existing modal system
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const isWeatherDataLoaded = weatherData.type !== "";
 
@@ -45,7 +45,6 @@ function App() {
     setActiveModal("preview");
   };
 
-  // ⭐ Your snippet integrated here
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
@@ -54,6 +53,22 @@ function App() {
     setActiveModal("");
   };
 
+  // ESC close
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") closeActiveModal();
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
+  // Add Item
   const onAddItem = (inputValues) => {
     const newCardData = {
       name: inputValues.name,
@@ -61,22 +76,28 @@ function App() {
       weather: inputValues.weather,
     };
 
+    setIsLoading(true);
+
     addItem(newCardData)
       .then((data) => {
         setClothingItems((prev) => [data, ...prev]);
         closeActiveModal();
       })
-      .catch((err) => console.error("Something went wrong:", err));
+      .catch((err) => console.error("Something went wrong:", err))
+      .finally(() => setIsLoading(false));
   };
 
   // Delete Item
   const handleDeleteItem = (id) => {
+    setIsLoading(true);
+
     removeItem(id)
       .then(() => {
         setClothingItems((prev) => prev.filter((item) => item._id !== id));
         closeActiveModal();
       })
-      .catch((err) => console.error("Delete failed:", err));
+      .catch((err) => console.error("Delete failed:", err))
+      .finally(() => setIsLoading(false));
   };
 
   // -----------------------------
@@ -125,7 +146,7 @@ function App() {
                 <Profile
                   clothingItems={clothingItems}
                   onCardClick={handleCardClick}
-                  onAddClick={handleAddClick} // ⭐ Your snippet added here
+                  onAddClick={handleAddClick}
                 />
               }
             />
@@ -134,12 +155,12 @@ function App() {
           <Footer />
         </div>
 
-        {/* ⭐ Your snippet: AddItemModal goes here */}
         <AddItemModal
           activeModal={activeModal}
-          onClose={closeActiveModal}
           isOpen={activeModal === "add-garment"}
           onAddItem={onAddItem}
+          onClose={closeActiveModal}
+          isLoading={isLoading}
         />
 
         <ItemModal
@@ -147,6 +168,7 @@ function App() {
           card={selectedCard}
           onClose={closeActiveModal}
           onDelete={handleDeleteItem}
+          isLoading={isLoading}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

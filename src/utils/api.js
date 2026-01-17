@@ -8,21 +8,26 @@ export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
+// NEW helper function
+function request(url, options) {
+  return fetch(url, options).then(handleServerResponse);
+}
+
 export const getItems = () => {
-  return fetch(`${baseUrl}/items`, { headers }).then(handleServerResponse);
+  return request(`${baseUrl}/items`, { headers });
 };
 
 export const addItem = (item) => {
-  return fetch(`${baseUrl}/items`, {
+  return request(`${baseUrl}/items`, {
     method: "POST",
     headers,
     body: JSON.stringify(item),
-  }).then(handleServerResponse);
+  });
 };
 
 export const removeItem = (id) => {
-  return fetch(`${baseUrl}/items/${id}`, {
+  return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers,
-  }).then(handleServerResponse);
+  });
 };

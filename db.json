@@ -91,12 +91,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sweatshirt.png?etag=008a9674757bea2e0bdb31242e364be0"
     },
     {
-      "_id": 16,
-      "name": "T-Shirt",
-      "weather": "hot",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
-    },
-    {
       "_id": 1768452106225,
       "name": "women sweater",
       "imageUrl": "https://image2url.com/r2/default/images/1768452087961-7f3ffe6f-1ba8-40dc-b50c-fafc8710e80e.png",
