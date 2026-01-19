@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import { coordinates, APIKey } from "../../utils/constants";
+import { APIKey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { addItem, getItems, removeItem } from "../../utils/api";
 
@@ -30,6 +30,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [coordinates, setCoordinates] = useState(null);
 
   const isWeatherDataLoaded = weatherData.type !== "";
 
@@ -100,13 +101,45 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  // -----------------------------
-  // Effects
-  // -----------------------------
+  // Get user's geolocation and fetch weather data
   useEffect(() => {
-    getWeather(coordinates, APIKey)
-      .then((data) => setWeatherData(filterWeatherData(data)))
-      .catch(console.error);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const userCoordinates = { latitude, longitude };
+          setCoordinates(userCoordinates);
+
+          // Fetch weather data with user's coordinates
+          getWeather(userCoordinates, APIKey)
+            .then((data) => setWeatherData(filterWeatherData(data)))
+            .catch(console.error);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          // Fallback to default coordinates if geolocation fails
+          const fallbackCoordinates = {
+            latitude: 39.951061,
+            longitude: -75.165619,
+          };
+          setCoordinates(fallbackCoordinates);
+          getWeather(fallbackCoordinates, APIKey)
+            .then((data) => setWeatherData(filterWeatherData(data)))
+            .catch(console.error);
+        },
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser");
+      // Fallback to default coordinates
+      const fallbackCoordinates = {
+        latitude: 39.951061,
+        longitude: -75.165619,
+      };
+      setCoordinates(fallbackCoordinates);
+      getWeather(fallbackCoordinates, APIKey)
+        .then((data) => setWeatherData(filterWeatherData(data)))
+        .catch(console.error);
+    }
 
     getItems()
       .then((data) => setClothingItems([...data].reverse()))

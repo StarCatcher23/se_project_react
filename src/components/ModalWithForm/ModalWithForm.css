@@ -83,3 +83,14 @@
 .modal__label {
   display: block;
 }
+
+.modal__input_invalid {
+  border-bottom-color: #ff0000;
+}
+
+.modal__error {
+  display: block;
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 4px;
+}
