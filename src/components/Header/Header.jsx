@@ -4,7 +4,13 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.svg";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  onRegisterClick,
+  onLoginClick,
+  isLoggedIn,
+}) {
   const location = useLocation();
 
   const userLinkTarget = "/profile";
@@ -28,11 +34,29 @@ function Header({ handleAddClick, weatherData }) {
       <ToggleSwitch />
 
       <button
-        onClick={handleAddClick}
+        onClick={() => {
+          if (!isLoggedIn) {
+            alert("Please log in first");
+            return;
+          }
+          handleAddClick();
+        }}
         type="button"
         className="header__add-clothes-btn"
       >
         + Add Clothes
+      </button>
+
+      <button
+        onClick={onRegisterClick}
+        type="button"
+        className="header__auth-btn"
+      >
+        Sign Up
+      </button>
+
+      <button onClick={onLoginClick} type="button" className="header__auth-btn">
+        Log In
       </button>
 
       <NavLink to="/profile" className="header__profile-link"></NavLink>

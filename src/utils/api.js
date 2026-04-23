@@ -17,17 +17,23 @@ export const getItems = () => {
   return request(`${baseUrl}/items`, { headers });
 };
 
-export const addItem = (item) => {
+export const addItem = (item, token) => {
   return request(`${baseUrl}/items`, {
     method: "POST",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(item),
   });
 };
 
-export const removeItem = (id) => {
+export const removeItem = (id, token) => {
   return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
   });
 };

@@ -5,13 +5,17 @@ import "./App.css";
 import { APIKey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { addItem, getItems, removeItem } from "../../utils/api";
+import { register, login, checkToken } from "../../utils/auth";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 import Footer from "../Footer/Footer";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
@@ -33,6 +37,7 @@ function App() {
   const [coordinates, setCoordinates] = useState(null);
 
   const isWeatherDataLoaded = weatherData.type !== "";
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // -----------------------------
   // Handlers
@@ -69,8 +74,17 @@ function App() {
     };
   }, [activeModal]);
 
+  // -----------------------------
   // Add Item
+  // -----------------------------
   const onAddItem = (inputValues) => {
+    if (!isLoggedIn) {
+      alert("Please log in first");
+      return;
+    }
+
+    const token = localStorage.getItem("jwt");
+
     const newCardData = {
       name: inputValues.name,
       imageUrl: inputValues.imageUrl,
@@ -79,7 +93,7 @@ function App() {
 
     setIsLoading(true);
 
-    addItem(newCardData)
+    addItem(newCardData, token)
       .then((data) => {
         setClothingItems((prev) => [data, ...prev]);
         closeActiveModal();
@@ -88,8 +102,14 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  // -----------------------------
   // Delete Item
+  // -----------------------------
   const handleDeleteItem = (id) => {
+    if (!isLoggedIn) {
+      alert("Please log in first");
+      return;
+    }
     setIsLoading(true);
 
     removeItem(id)
@@ -101,7 +121,65 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  // -----------------------------
+  // Registration
+  // -----------------------------
+  const handleRegister = (userData) => {
+    setIsLoading(true);
+
+    register(userData)
+      .then(() => {
+        // Auto-login after successful registration
+        return login({
+          email: userData.email,
+          password: userData.password,
+        });
+      })
+      .then((loginRes) => {
+        localStorage.setItem("jwt", loginRes.token);
+        setIsLoggedIn(true);
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Registration failed:", err))
+      .finally(() => setIsLoading(false));
+  };
+
+  // -----------------------------
+  // Login
+  // -----------------------------
+  const handleLogin = (credentials) => {
+    setIsLoading(true);
+
+    login(credentials)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Login failed:", err))
+      .finally(() => setIsLoading(false));
+  };
+  // -----------------------------
+  // Token Validation (Auto-login)
+  // -----------------------------
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (!token) return;
+
+    checkToken(token)
+      .then((data) => {
+        setIsLoggedIn(true);
+        // setCurrentUser(data); // optional
+      })
+      .catch(() => {
+        localStorage.removeItem("jwt");
+        setIsLoggedIn(false);
+      });
+  }, []);
+
+  // -----------------------------
   // Get user's geolocation and fetch weather data
+  // -----------------------------
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -110,14 +188,11 @@ function App() {
           const userCoordinates = { latitude, longitude };
           setCoordinates(userCoordinates);
 
-          // Fetch weather data with user's coordinates
           getWeather(userCoordinates, APIKey)
             .then((data) => setWeatherData(filterWeatherData(data)))
             .catch(console.error);
         },
-        (error) => {
-          console.error("Geolocation error:", error);
-          // Fallback to default coordinates if geolocation fails
+        () => {
           const fallbackCoordinates = {
             latitude: 39.951061,
             longitude: -75.165619,
@@ -128,21 +203,10 @@ function App() {
             .catch(console.error);
         },
       );
-    } else {
-      console.error("Geolocation is not supported by this browser");
-      // Fallback to default coordinates
-      const fallbackCoordinates = {
-        latitude: 39.951061,
-        longitude: -75.165619,
-      };
-      setCoordinates(fallbackCoordinates);
-      getWeather(fallbackCoordinates, APIKey)
-        .then((data) => setWeatherData(filterWeatherData(data)))
-        .catch(console.error);
     }
 
     getItems()
-      .then((data) => setClothingItems([...data].reverse()))
+      .then((res) => setClothingItems(res.data.reverse()))
       .catch(console.error);
   }, []);
 
@@ -155,7 +219,13 @@ function App() {
     >
       <div className="page">
         <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+          <Header
+            handleAddClick={handleAddClick}
+            weatherData={weatherData}
+            onLoginClick={() => setActiveModal("login")}
+            onRegisterClick={() => setActiveModal("register")}
+            isLoggedIn={isLoggedIn}
+          />
 
           <Routes>
             <Route
@@ -176,11 +246,13 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  clothingItems={clothingItems}
-                  onCardClick={handleCardClick}
-                  onAddClick={handleAddClick}
-                />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    clothingItems={clothingItems}
+                    onCardClick={handleCardClick}
+                    onAddClick={handleAddClick}
+                  />
+                </ProtectedRoute>
               }
             />
           </Routes>
@@ -201,6 +273,22 @@ function App() {
           card={selectedCard}
           onClose={closeActiveModal}
           onDelete={handleDeleteItem}
+          isLoading={isLoading}
+        />
+
+        <LoginModal
+          activeModal={activeModal}
+          isOpen={activeModal === "login"}
+          onLogin={handleLogin}
+          onClose={closeActiveModal}
+          isLoading={isLoading}
+        />
+
+        <RegisterModal
+          activeModal={activeModal}
+          isOpen={activeModal === "register"}
+          onRegister={handleRegister}
+          onClose={closeActiveModal}
           isLoading={isLoading}
         />
       </div>

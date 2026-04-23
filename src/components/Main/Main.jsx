@@ -8,7 +8,7 @@ function Main({ handleCardClick, clothingItems, weatherData }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   const filteredItems = clothingItems.filter(
-    (item) => item.weather === weatherData.type
+    (item) => item.weather.toLowerCase() === weatherData.type.toLowerCase(),
   );
 
   return (
@@ -16,8 +16,9 @@ function Main({ handleCardClick, clothingItems, weatherData }) {
       <WeatherCard weatherData={weatherData} />
       <section className="main__clothes">
         <p className="main__description">
-          Today is {weatherData.temp[currentTemperatureUnit]}°{" "}
-          {currentTemperatureUnit} / You may want to wear:
+          Today is {weatherData.type} and{" "}
+          {weatherData.temp[currentTemperatureUnit]}° {currentTemperatureUnit} /
+          You may want to wear:
         </p>
         <ul className="main__items">
           {filteredItems.map((card) => (
