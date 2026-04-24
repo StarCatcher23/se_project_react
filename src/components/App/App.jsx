@@ -18,6 +18,7 @@ import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -38,6 +39,7 @@ function App() {
 
   const isWeatherDataLoaded = weatherData.type !== "";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   // -----------------------------
   // Handlers
@@ -169,7 +171,7 @@ function App() {
     checkToken(token)
       .then((data) => {
         setIsLoggedIn(true);
-        // setCurrentUser(data); // optional
+        setCurrentUser(data); // optional
       })
       .catch(() => {
         localStorage.removeItem("jwt");
@@ -214,85 +216,87 @@ function App() {
   // Render
   // -----------------------------
   return (
-    <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-    >
-      <div className="page">
-        <div className="page__content">
-          <Header
-            handleAddClick={handleAddClick}
-            weatherData={weatherData}
-            onLoginClick={() => setActiveModal("login")}
-            onRegisterClick={() => setActiveModal("register")}
-            isLoggedIn={isLoggedIn}
-          />
-
-          <Routes>
-            <Route
-              path="/"
-              element={
-                isWeatherDataLoaded ? (
-                  <Main
-                    weatherData={weatherData}
-                    clothingItems={clothingItems}
-                    handleCardClick={handleCardClick}
-                  />
-                ) : (
-                  <p>Loading weather data...</p>
-                )
-              }
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+      >
+        <div className="page">
+          <div className="page__content">
+            <Header
+              handleAddClick={handleAddClick}
+              weatherData={weatherData}
+              onLoginClick={() => setActiveModal("login")}
+              onRegisterClick={() => setActiveModal("register")}
+              isLoggedIn={isLoggedIn}
             />
 
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile
-                    clothingItems={clothingItems}
-                    onCardClick={handleCardClick}
-                    onAddClick={handleAddClick}
-                  />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isWeatherDataLoaded ? (
+                    <Main
+                      weatherData={weatherData}
+                      clothingItems={clothingItems}
+                      handleCardClick={handleCardClick}
+                    />
+                  ) : (
+                    <p>Loading weather data...</p>
+                  )
+                }
+              />
 
-          <Footer />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      clothingItems={clothingItems}
+                      onCardClick={handleCardClick}
+                      onAddClick={handleAddClick}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+
+            <Footer />
+
+            <AddItemModal
+              activeModal={activeModal}
+              isOpen={activeModal === "add-garment"}
+              onAddItem={onAddItem}
+              onClose={closeActiveModal}
+              isLoading={isLoading}
+            />
+
+            <ItemModal
+              activeModal={activeModal}
+              card={selectedCard}
+              onClose={closeActiveModal}
+              onDelete={handleDeleteItem}
+              isLoading={isLoading}
+            />
+
+            <LoginModal
+              activeModal={activeModal}
+              isOpen={activeModal === "login"}
+              onLogin={handleLogin}
+              onClose={closeActiveModal}
+              isLoading={isLoading}
+            />
+
+            <RegisterModal
+              activeModal={activeModal}
+              isOpen={activeModal === "register"}
+              onRegister={handleRegister}
+              onClose={closeActiveModal}
+              isLoading={isLoading}
+            />
+          </div>
         </div>
-
-        <AddItemModal
-          activeModal={activeModal}
-          isOpen={activeModal === "add-garment"}
-          onAddItem={onAddItem}
-          onClose={closeActiveModal}
-          isLoading={isLoading}
-        />
-
-        <ItemModal
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={closeActiveModal}
-          onDelete={handleDeleteItem}
-          isLoading={isLoading}
-        />
-
-        <LoginModal
-          activeModal={activeModal}
-          isOpen={activeModal === "login"}
-          onLogin={handleLogin}
-          onClose={closeActiveModal}
-          isLoading={isLoading}
-        />
-
-        <RegisterModal
-          activeModal={activeModal}
-          isOpen={activeModal === "register"}
-          onRegister={handleRegister}
-          onClose={closeActiveModal}
-          isLoading={isLoading}
-        />
-      </div>
-    </CurrentTemperatureUnitContext.Provider>
+      </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
