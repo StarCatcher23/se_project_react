@@ -2,7 +2,7 @@ import "./SideBar.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-export default function Sidebar({ onEditProfile }) {
+export default function Sidebar({ onEditProfile, onSignOut }) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -18,6 +18,10 @@ export default function Sidebar({ onEditProfile }) {
 
       <button className="sidebar__edit-btn" onClick={onEditProfile}>
         Edit profile
+      </button>
+
+      <button className="sidebar__signout-btn" onClick={onSignOut}>
+        Sign out
       </button>
     </aside>
   );

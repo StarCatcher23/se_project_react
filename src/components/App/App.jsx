@@ -90,23 +90,29 @@ function App() {
   }, [activeModal]);
 
   const handleCardLike = ({ id, isLiked }) => {
-  const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("jwt");
 
-  if (!token) {
-    alert("Please log in first");
-    return;
-  }
+    if (!token) {
+      alert("Please log in first");
+      return;
+    }
 
-  const likeRequest = !isLiked ? addCardLike : removeCardLike;
+    const likeRequest = !isLiked ? addCardLike : removeCardLike;
 
-  likeRequest(id, token)
-    .then((updatedCard) => {
-      setClothingItems((cards) =>
-        cards.map((item) => (item._id === id ? updatedCard : item))
-      );
-    })
-    .catch((err) => console.error("Like toggle failed:", err));
-};
+    likeRequest(id, token)
+      .then((updatedCard) => {
+        setClothingItems((cards) =>
+          cards.map((item) => (item._id === id ? updatedCard : item)),
+        );
+      })
+      .catch((err) => console.error("Like toggle failed:", err));
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null); // optional but recommended
+  };
 
   // -----------------------------
   // Add Item
@@ -301,6 +307,8 @@ function App() {
                       onCardClick={handleCardClick}
                       onAddClick={handleAddClick}
                       onEditProfile={handleEditProfileClick}
+                      onCardLike={handleCardLike}
+                      onSignOut={handleSignOut}
                     />
                   </ProtectedRoute>
                 }
