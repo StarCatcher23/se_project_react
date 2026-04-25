@@ -5,15 +5,23 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
 
+  // Hide the entire card if user is not logged in
+  if (!currentUser) return null;
+
   const handleCardClick = () => {
     onCardClick(item);
   };
 
-  // Determine if the current user has liked this item
-  const isLiked = item.likes?.includes(currentUser?._id);
+  // Check if the item was liked by the current user
+  const isLiked = item.likes.some((id) => id === currentUser._id);
+
+  // Build className for the like button
+  const itemLikeButtonClassName = `card__like-btn ${
+    isLiked ? "card__like-btn_active" : ""
+  }`;
 
   const handleLikeClick = (e) => {
-    e.stopPropagation(); // prevent opening the preview modal
+    e.stopPropagation();
     onCardLike({ id: item._id, isLiked });
   };
 
@@ -28,10 +36,8 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         alt={item.name}
       />
 
-      <button
-        className={`card__like-btn ${isLiked ? "card__like-btn_active" : ""}`}
-        onClick={handleLikeClick}
-      />
+      {/* Like button */}
+      <button className={itemLikeButtonClassName} onClick={handleLikeClick} />
     </li>
   );
 }
