@@ -37,3 +37,17 @@ export const removeItem = (id, token) => {
     },
   });
 };
+
+export const editProfile = (data, token) => {
+  return request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: data.name,
+      avatar: data.avatar,
+    }),
+  });
+};

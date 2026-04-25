@@ -4,7 +4,7 @@ import "./App.css";
 
 import { APIKey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { addItem, getItems, removeItem } from "../../utils/api";
+import { addItem, getItems, removeItem, editProfile } from "../../utils/api";
 import { register, login, checkToken } from "../../utils/auth";
 
 import Header from "../Header/Header";
@@ -40,6 +40,7 @@ function App() {
   const isWeatherDataLoaded = weatherData.type !== "";
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   // -----------------------------
   // Handlers
@@ -59,6 +60,11 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+    setIsEditProfileOpen(false);
+  };
+
+  const handleEditProfileClick = () => {
+    setIsEditProfileOpen(true);
   };
 
   // ESC close
@@ -161,6 +167,20 @@ function App() {
       .catch((err) => console.error("Login failed:", err))
       .finally(() => setIsLoading(false));
   };
+
+  const handleEditProfileSubmit = (data) => {
+    const token = localStorage.getItem("jwt");
+    setIsLoading(true);
+
+    editProfile(data, token)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Profile update failed:", err))
+      .finally(() => setIsLoading(false));
+  };
+
   // -----------------------------
   // Token Validation (Auto-login)
   // -----------------------------
@@ -254,6 +274,7 @@ function App() {
                       clothingItems={clothingItems}
                       onCardClick={handleCardClick}
                       onAddClick={handleAddClick}
+                      onEditProfile={handleEditProfileClick}
                     />
                   </ProtectedRoute>
                 }
