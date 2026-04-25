@@ -30,6 +30,20 @@
   display: block;
 }
 
+.header__avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #ccc;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
 .header__add-clothes-btn {
   padding: 8px 16px;
   border: 1px solid #000;
