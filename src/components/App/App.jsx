@@ -4,7 +4,14 @@ import "./App.css";
 
 import { APIKey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { addItem, getItems, removeItem, editProfile } from "../../utils/api";
+import {
+  addItem,
+  getItems,
+  removeItem,
+  addCardLike,
+  removeCardLike,
+  editProfile,
+} from "../../utils/api";
 import { register, login, checkToken } from "../../utils/auth";
 
 import Header from "../Header/Header";
@@ -81,6 +88,25 @@ function App() {
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [activeModal]);
+
+  const handleCardLike = ({ id, isLiked }) => {
+  const token = localStorage.getItem("jwt");
+
+  if (!token) {
+    alert("Please log in first");
+    return;
+  }
+
+  const likeRequest = !isLiked ? addCardLike : removeCardLike;
+
+  likeRequest(id, token)
+    .then((updatedCard) => {
+      setClothingItems((cards) =>
+        cards.map((item) => (item._id === id ? updatedCard : item))
+      );
+    })
+    .catch((err) => console.error("Like toggle failed:", err));
+};
 
   // -----------------------------
   // Add Item

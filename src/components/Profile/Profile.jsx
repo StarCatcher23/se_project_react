@@ -8,6 +8,7 @@ export default function Profile({
   onCardClick,
   onAddClick,
   onEditProfile,
+  onCardLike
 }) {
   return (
     <section className="profile">
@@ -16,6 +17,7 @@ export default function Profile({
         clothingItems={clothingItems}
         onCardClick={onCardClick}
         onAddClick={onAddClick}
+        onCardLike={onCardLike}
       />
     </section>
   );

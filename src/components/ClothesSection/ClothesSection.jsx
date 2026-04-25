@@ -7,10 +7,10 @@ export default function ClothesSection({
   clothingItems,
   onCardClick,
   onAddClick,
+  onCardLike,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
-  // Filter clothing items to show only those owned by the current user
   const userClothingItems = clothingItems.filter(
     (item) => item.owner === currentUser?._id,
   );
@@ -26,7 +26,12 @@ export default function ClothesSection({
 
       <ul className="clothes-section__items">
         {userClothingItems.map((card) => (
-          <ItemCard key={card._id} item={card} onCardClick={onCardClick} />
+          <ItemCard
+            key={card._id}
+            item={card}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+          />
         ))}
       </ul>
     </div>
