@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import "./EditProfileModal.css";
+import "./EditProfile.css";
 
 function EditProfileModal({ isOpen, onClose, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);

@@ -9,15 +9,8 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
     weather: "",
   };
 
-  const {
-    values,
-    handleChange,
-    errors,
-    resetForm,
-    isFormValid,
-    isSubmitted,
-    handleSubmit: handleValidationSubmit,
-  } = useFormWithValidation(defaultValues);
+  const { values, handleChange, errors, resetForm, isValid } =
+    useFormWithValidation(defaultValues);
 
   // Reset form when modal closes
   useEffect(() => {
@@ -28,8 +21,8 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleValidationSubmit();
-    if (isFormValid) {
+
+    if (isValid) {
       onAddItem(values);
     }
   }
@@ -52,6 +45,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
           placeholder="Name"
           value={values.name}
           onChange={handleChange}
+          required
         />
         {errors.name && <span className="modal__error">{errors.name}</span>}
       </label>
@@ -65,6 +59,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
           placeholder="Image URL"
           value={values.imageUrl}
           onChange={handleChange}
+          required
         />
         {errors.imageUrl && (
           <span className="modal__error">{errors.imageUrl}</span>
@@ -80,6 +75,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
             name="weather"
             value="hot"
             onChange={handleChange}
+            required
           />
           Hot
         </label>

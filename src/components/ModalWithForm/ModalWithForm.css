@@ -102,3 +102,21 @@
   font-size: 12px;
   margin-top: 4px;
 }
+
+.modal__button-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal__button-footer .modal__submit {
+  flex: 1;
+  margin-top: 0;
+}
+
+.modal__footer-text {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  white-space: nowrap;
+}

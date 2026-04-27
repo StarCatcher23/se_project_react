@@ -41,35 +41,8 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
       onSubmit={handleSubmit}
       isOpen={isOpen}
       onClose={onClose}
+      footerText="or Log In"
     >
-      <label className="modal__label">
-        Name
-        <input
-          type="text"
-          name="name"
-          className={`modal__input ${errors.name ? "modal__input_invalid" : ""}`}
-          placeholder="Name"
-          value={values.name}
-          onChange={handleChange}
-          required
-        />
-        {errors.name && <span className="modal__error">{errors.name}</span>}
-      </label>
-
-      <label className="modal__label">
-        Avatar URL
-        <input
-          type="url"
-          name="avatar"
-          className={`modal__input ${errors.avatar ? "modal__input_invalid" : ""}`}
-          placeholder="Avatar URL"
-          value={values.avatar}
-          onChange={handleChange}
-          required
-        />
-        {errors.avatar && <span className="modal__error">{errors.avatar}</span>}
-      </label>
-
       <label className="modal__label">
         Email
         <input
@@ -98,6 +71,33 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
         {errors.password && (
           <span className="modal__error">{errors.password}</span>
         )}
+      </label>
+      <label className="modal__label">
+        Name
+        <input
+          type="text"
+          name="name"
+          className={`modal__input ${errors.name ? "modal__input_invalid" : ""}`}
+          placeholder="Name"
+          value={values.name}
+          onChange={handleChange}
+          required
+        />
+        {errors.name && <span className="modal__error">{errors.name}</span>}
+      </label>
+
+      <label className="modal__label">
+        Avatar URL
+        <input
+          type="url"
+          name="avatar"
+          className={`modal__input ${errors.avatar ? "modal__input_invalid" : ""}`}
+          placeholder="Avatar URL"
+          value={values.avatar}
+          onChange={handleChange}
+          required
+        />
+        {errors.avatar && <span className="modal__error">{errors.avatar}</span>}
       </label>
     </ModalWithForm>
   );

@@ -21,6 +21,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
+import EditProfileModal from "../EditProfile/EditProfile";
 import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
@@ -331,7 +332,6 @@ function App() {
             <Footer />
 
             <AddItemModal
-              activeModal={activeModal}
               isOpen={activeModal === "add-garment"}
               onAddItem={onAddItem}
               onClose={closeActiveModal}
@@ -339,7 +339,6 @@ function App() {
             />
 
             <ItemModal
-              activeModal={activeModal}
               card={selectedCard}
               onClose={closeActiveModal}
               onDelete={handleDeleteItem}
@@ -347,7 +346,6 @@ function App() {
             />
 
             <LoginModal
-              activeModal={activeModal}
               isOpen={activeModal === "login"}
               onLogin={handleLogin}
               onClose={closeActiveModal}
@@ -355,11 +353,16 @@ function App() {
             />
 
             <RegisterModal
-              activeModal={activeModal}
               isOpen={activeModal === "register"}
               onRegister={handleRegister}
               onClose={closeActiveModal}
               isLoading={isLoading}
+            />
+
+            <EditProfileModal
+              isOpen={isEditProfileOpen}
+              onClose={closeActiveModal}
+              onSubmit={handleEditProfileSubmit}
             />
           </div>
         </div>
