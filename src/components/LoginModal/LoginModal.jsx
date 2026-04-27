@@ -9,16 +9,9 @@ const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
     password: "",
   };
 
-  const {
-    values,
-    handleChange,
-    errors,
-    resetForm,
-    isFormValid,
-    handleSubmit: handleValidationSubmit,
-  } = useFormWithValidation(defaultValues);
+  const { values, handleChange, errors, resetForm, isValid } =
+    useFormWithValidation(defaultValues);
 
-  // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
       resetForm();
@@ -27,9 +20,8 @@ const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleValidationSubmit();
 
-    if (isFormValid()) {
+    if (isValid) {
       onLogin({
         email: values.email,
         password: values.password,

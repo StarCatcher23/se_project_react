@@ -29,7 +29,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
   function handleSubmit(e) {
     e.preventDefault();
     handleValidationSubmit();
-    if (isFormValid()) {
+    if (isFormValid) {
       onAddItem(values);
     }
   }

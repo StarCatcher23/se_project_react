@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   visibility: hidden;
+  z-index: 1;
 }
 
 .modal_opened {
@@ -27,6 +28,12 @@
   position: absolute;
   top: 20px;
   right: 28px;
+  width: 20px;
+  height: 20px;
+  background: url("../images/close.svg") center/contain no-repeat;
+  border: none;
+  cursor: pointer;
+  z-index: 3;
 }
 
 .modal__content {
@@ -36,6 +43,7 @@
   max-width: 496px;
   width: 100%;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .modal__form {

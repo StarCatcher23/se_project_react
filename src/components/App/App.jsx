@@ -169,7 +169,6 @@ function App() {
 
     register(userData)
       .then(() => {
-        // Auto-login after successful registration
         return login({
           email: userData.email,
           password: userData.password,
@@ -192,11 +191,25 @@ function App() {
 
     login(credentials)
       .then((res) => {
+        console.log("Login successful:", res);
+
+        // 1. Save token
         localStorage.setItem("jwt", res.token);
+
+        // 2. Validate token
+        return checkToken(res.token);
+      })
+      .then((userData) => {
+        // 3. Update state
         setIsLoggedIn(true);
+        setCurrentUser(userData);
+
+        // 4. Close modal
         closeActiveModal();
       })
-      .catch((err) => console.error("Login failed:", err))
+      .catch((err) => {
+        console.error("Login failed:", err);
+      })
       .finally(() => setIsLoading(false));
   };
 

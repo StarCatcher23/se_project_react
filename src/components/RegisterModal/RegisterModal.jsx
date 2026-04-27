@@ -11,16 +11,9 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
     password: "",
   };
 
-  const {
-    values,
-    handleChange,
-    errors,
-    resetForm,
-    isFormValid,
-    handleSubmit: handleValidationSubmit,
-  } = useFormWithValidation(defaultValues);
+  const { values, handleChange, errors, resetForm, isValid } =
+    useFormWithValidation(defaultValues);
 
-  // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
       resetForm();
@@ -29,9 +22,8 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleValidationSubmit();
 
-    if (isFormValid()) {
+    if (isValid) {
       onRegister({
         name: values.name,
         avatar: values.avatar,
@@ -56,13 +48,14 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
           type="text"
           name="name"
           className={`modal__input ${errors.name ? "modal__input_invalid" : ""}`}
-          placeholder="Your name"
+          placeholder="Name"
           value={values.name}
           onChange={handleChange}
           required
         />
         {errors.name && <span className="modal__error">{errors.name}</span>}
       </label>
+
       <label className="modal__label">
         Avatar URL
         <input
