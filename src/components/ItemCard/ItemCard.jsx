@@ -1,19 +1,22 @@
 import "./ItemCard.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import likeButtonIcon from "../../assets/Likebutton.png";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
-
-  // Hide the entire card if user is not logged in
-  if (!currentUser) return null;
+  const isLoggedIn = !!currentUser;
 
   const handleCardClick = () => {
     onCardClick(item);
   };
 
   // Check if the item was liked by the current user
-  const isLiked = item.likes.some((id) => id === currentUser._id);
+  const isLiked =
+    isLoggedIn &&
+    item.likes.some(
+      (likeUserId) => String(likeUserId) === String(currentUser._id),
+    );
 
   // Build className for the like button
   const itemLikeButtonClassName = `card__like-btn ${
@@ -22,6 +25,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
 
   const handleLikeClick = (e) => {
     e.stopPropagation();
+    if (!onCardLike) return;
     onCardLike({ id: item._id, isLiked });
   };
 
@@ -36,8 +40,21 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         alt={item.name}
       />
 
-      {/* Like button */}
-      <button className={itemLikeButtonClassName} onClick={handleLikeClick} />
+      {/* Like button only for logged-in users */}
+      {isLoggedIn && (
+        <button
+          className={itemLikeButtonClassName}
+          onClick={handleLikeClick}
+          aria-label={isLiked ? "Unlike item" : "Like item"}
+          type="button"
+        >
+          <img
+            className="card__like-icon"
+            src={likeButtonIcon}
+            alt={isLiked ? "Liked" : "Not liked"}
+          />
+        </button>
+      )}
     </li>
   );
 }

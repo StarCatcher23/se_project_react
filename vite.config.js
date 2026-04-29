@@ -8,5 +8,6 @@ export default defineConfig({
   // add the server object
   server: {
     port: 3000,
+    strictPort: true,
   },
 });

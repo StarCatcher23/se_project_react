@@ -75,21 +75,6 @@ function App() {
     setIsEditProfileOpen(true);
   };
 
-  // ESC close
-  useEffect(() => {
-    if (!activeModal) return;
-
-    const handleEscClose = (e) => {
-      if (e.key === "Escape") closeActiveModal();
-    };
-
-    document.addEventListener("keydown", handleEscClose);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal]);
-
   const handleCardLike = ({ id, isLiked }) => {
     const token = localStorage.getItem("jwt");
 
@@ -108,6 +93,21 @@ function App() {
       })
       .catch((err) => console.error("Like toggle failed:", err));
   };
+
+  // ESC close
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") closeActiveModal();
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
@@ -274,7 +274,9 @@ function App() {
     }
 
     getItems()
-      .then((res) => setClothingItems(res.data.reverse()))
+      .then((items) =>
+        setClothingItems(Array.isArray(items) ? [...items].reverse() : items),
+      )
       .catch(console.error);
   }, []);
 
@@ -305,6 +307,7 @@ function App() {
                       weatherData={weatherData}
                       clothingItems={clothingItems}
                       handleCardClick={handleCardClick}
+                      onCardLike={handleCardLike}
                     />
                   ) : (
                     <p>Loading weather data...</p>

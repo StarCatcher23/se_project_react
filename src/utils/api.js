@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const headers = {
   "Content-Type": "application/json",
@@ -8,13 +8,16 @@ export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };
 
-// NEW helper function
 function request(url, options) {
   return fetch(url, options).then(handleServerResponse);
 }
 
+function unwrapApiResponse(response) {
+  return response && response.data !== undefined ? response.data : response;
+}
+
 export const getItems = () => {
-  return request(`${baseUrl}/items`, { headers });
+  return request(`${baseUrl}/items`, { headers }).then(unwrapApiResponse);
 };
 
 export const addItem = (item, token) => {
@@ -25,7 +28,7 @@ export const addItem = (item, token) => {
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(item),
-  });
+  }).then(unwrapApiResponse);
 };
 
 export const removeItem = (id, token) => {
@@ -59,7 +62,7 @@ export const addCardLike = (id, token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  });
+  }).then(unwrapApiResponse);
 };
 
 export const removeCardLike = (id, token) => {
@@ -69,5 +72,5 @@ export const removeCardLike = (id, token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  });
+  }).then(unwrapApiResponse);
 };

@@ -1,4 +1,26 @@
 .profile {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  padding: 32px;
+  align-items: start;
+}
+
+.profile__sidebar-panel {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile__heading {
+  margin: 0;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  color: #2f2f2f;
+}
+
+.profile__content {
+  min-width: 0;
 }
