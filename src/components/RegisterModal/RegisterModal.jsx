@@ -1,7 +1,6 @@
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect } from "react";
-import "./RegisterModal.css";
 
 const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
   const defaultValues = {

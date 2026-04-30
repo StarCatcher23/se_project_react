@@ -1,3 +1,5 @@
+import { handleServerResponse } from "./api";
+
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export const register = ({ name, avatar, email, password }) => {
@@ -7,9 +9,7 @@ export const register = ({ name, avatar, email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name, avatar, email, password }),
-  }).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`),
-  );
+  }).then(handleServerResponse);
 };
 
 export const login = ({ email, password }) => {
@@ -19,9 +19,7 @@ export const login = ({ email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`),
-  );
+  }).then(handleServerResponse);
 };
 
 export const checkToken = (token) => {
@@ -31,7 +29,5 @@ export const checkToken = (token) => {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then((res) =>
-    res.ok ? res.json() : Promise.reject(`Error: ${res.status}`),
-  );
+  }).then(handleServerResponse);
 };

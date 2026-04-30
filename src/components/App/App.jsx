@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import { APIKey } from "../../utils/constants";
+import { apiKey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import {
   addItem,
@@ -118,7 +118,7 @@ function App() {
   // -----------------------------
   // Add Item
   // -----------------------------
-  const onAddItem = (inputValues) => {
+  const handleAddItem = (inputValues) => {
     if (!isLoggedIn) {
       alert("Please log in first");
       return;
@@ -151,9 +151,12 @@ function App() {
       alert("Please log in first");
       return;
     }
+
+    const token = localStorage.getItem("jwt");
+
     setIsLoading(true);
 
-    removeItem(id)
+    removeItem(id, token)
       .then(() => {
         setClothingItems((prev) => prev.filter((item) => item._id !== id));
         closeActiveModal();
@@ -256,7 +259,7 @@ function App() {
           const userCoordinates = { latitude, longitude };
           setCoordinates(userCoordinates);
 
-          getWeather(userCoordinates, APIKey)
+          getWeather(userCoordinates, apiKey)
             .then((data) => setWeatherData(filterWeatherData(data)))
             .catch(console.error);
         },
@@ -266,7 +269,7 @@ function App() {
             longitude: -75.165619,
           };
           setCoordinates(fallbackCoordinates);
-          getWeather(fallbackCoordinates, APIKey)
+          getWeather(fallbackCoordinates, apiKey)
             .then((data) => setWeatherData(filterWeatherData(data)))
             .catch(console.error);
         },
@@ -336,16 +339,16 @@ function App() {
 
             <AddItemModal
               isOpen={activeModal === "add-garment"}
-              onAddItem={onAddItem}
+              handleAddItem={handleAddItem}
               onClose={closeActiveModal}
               isLoading={isLoading}
             />
 
             <ItemModal
+              isOpen={activeModal === "preview"}
               card={selectedCard}
               onClose={closeActiveModal}
               onDelete={handleDeleteItem}
-              isLoading={isLoading}
             />
 
             <LoginModal

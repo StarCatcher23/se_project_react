@@ -28,12 +28,17 @@
   position: absolute;
   top: 20px;
   right: 28px;
-  width: 20px;
-  height: 20px;
-  background: url("../images/close.svg") center/contain no-repeat;
   border: none;
+  background: none;
   cursor: pointer;
+  padding: 0;
   z-index: 3;
+}
+
+.modal__close img {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .modal__content {

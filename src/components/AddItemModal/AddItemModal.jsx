@@ -2,7 +2,7 @@ import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect } from "react";
 
-const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
+const AddItemModal = ({ isOpen, handleAddItem, onClose, isLoading }) => {
   const defaultValues = {
     name: "",
     imageUrl: "",
@@ -23,7 +23,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
     e.preventDefault();
 
     if (isValid) {
-      onAddItem(values);
+      handleAddItem(values);
     }
   }
 
