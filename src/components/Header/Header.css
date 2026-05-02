@@ -1,13 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
-  gap: 20px; /* ← adds spacing between all children */
+  align-items: center;
+
+  padding: 32px 40px 0 40px; /* Top: 32px, Left/Right: 40px */
+  height: 40px; /* Figma height */
+  box-sizing: border-box;
+}
+
+/* LEFT GROUP */
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* spacing between logo and date */
 }
 
 .header__logo {
-  margin-right: 24px;
+  margin: 0; /* remove old margin */
 }
 
 .header__nav-link {
@@ -16,9 +27,20 @@
 }
 
 .header__date-and-location {
-  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+  margin: 0; /* remove margin-left + margin-top */
+  white-space: nowrap;
+}
+
+/* RIGHT GROUP */
+.header__right {
   display: flex;
-  flex-grow: 1;
+  align-items: center;
+  gap: 24px; /* spacing between toggle + buttons */
 }
 
 .header__avatar {
@@ -45,18 +67,60 @@
 }
 
 .header__add-clothes-btn {
-  padding: 8px 16px;
+  padding: 10px 18px;
   border: 1px solid #000;
   background-color: transparent;
-  border-radius: 4px;
+  border-radius: 12px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .header__add-clothes-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* AUTH BUTTON WRAPPER */
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Figma spacing */
+}
+
+/* BASE BUTTON */
+.header__auth-btn {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 500; /* Figma weight */
+  padding: 8px 18px; /* Figma padding */
+  border-radius: 20px; /* Figma pill shape */
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+/* SIGN UP — black pill */
+.header__auth-btn_type_signup {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* LOG IN — white pill with thin border */
+.header__auth-btn_type_login {
+  background: #fff;
+  color: #000;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Hover */
+.header__auth-btn:hover {
+  opacity: 0.85;
 }
 
 .header__user-container {

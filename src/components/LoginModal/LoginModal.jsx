@@ -1,6 +1,7 @@
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect } from "react";
+import "./LoginModal.css";
 
 const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
   const defaultValues = {
@@ -36,6 +37,7 @@ const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
       onSubmit={handleSubmit}
       isOpen={isOpen}
       onClose={onClose}
+      footerText="or Sign Up"
     >
       <label className="modal__label">
         Email
