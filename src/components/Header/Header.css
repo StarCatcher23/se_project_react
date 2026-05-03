@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabinet Grotesk:wght@500;600;700&display=swap");
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  padding: 32px 40px 0 40px; /* Top: 32px, Left/Right: 40px */
+  padding: 32px 0px;
   height: 40px; /* Figma height */
   box-sizing: border-box;
 }
@@ -27,7 +27,7 @@
 }
 
 .header__date-and-location {
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
@@ -93,7 +93,7 @@
 
 /* BASE BUTTON */
 .header__auth-btn {
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 16px;
   font-weight: 500; /* Figma weight */
   padding: 8px 18px; /* Figma padding */

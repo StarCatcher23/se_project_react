@@ -29,7 +29,7 @@
    TITLE
    =========================== */
 .modal__title {
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 28px;
   font-weight: 600;
   margin: 0;
@@ -47,7 +47,7 @@
 
 /* Label */
 .modal__label {
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -60,7 +60,7 @@
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   padding: 0 12px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 16px;
   box-sizing: border-box;
 }
@@ -80,7 +80,7 @@
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 16px;
   cursor: pointer;
 }
@@ -93,7 +93,7 @@
    SWITCH LINK (Log In instead)
    =========================== */
 .modal__switch {
-  font-family: "Poppins", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 14px;
   text-align: center;
   color: #555555;

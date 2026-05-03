@@ -18,21 +18,21 @@
 
 .modal__title {
   font-family: "Cabinet Grotesk", sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
-  margin: 0 0 24px;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 8px 0; /* small spacing under title */
+  text-align: left;
 }
 
 .modal__close {
   position: absolute;
   top: 20px;
-  right: 28px;
-  border: none;
-  background: none;
+  right: 20px;
+
+  background: none; /* ← REQUIRED */
+  border: none; /* ← REQUIRED */
+  padding: 0; /* ← prevents extra space */
   cursor: pointer;
-  padding: 0;
-  z-index: 3;
 }
 
 .modal__close img {
@@ -42,30 +42,32 @@
 }
 
 .modal__content {
-  background-color: #fff;
-  position: relative;
-  padding: 28px 28px 36px;
-  max-width: 496px;
-  width: 100%;
-  border-radius: 20px; /* Add this line */
+  position: relative; /* ← THIS FIXES THE CLOSE BUTTON */
+  width: 496px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .modal__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
+  gap: 16px; /* Figma spacing */
 }
 
 .modal__input {
   width: 100%;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 8px 0;
-  background: transparent;
-  outline: none;
+  height: 48px; /* Figma height */
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-size: 16px;
-  line-height: 20px;
+  box-sizing: border-box;
 }
 
 .modal__input:focus {
@@ -93,7 +95,12 @@
 }
 
 .modal__label {
-  display: block;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal__input_invalid {
@@ -107,15 +114,54 @@
   margin-top: 4px;
 }
 
-.modal__button-footer {
+.modal__button {
+  display: inline-flex; /* allows hug width */
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 16px; /* Figma padding */
+  height: auto; /* Hug height */
+  width: auto; /* Hug width */
+
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px; /* Figma radius */
+
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.modal__footer {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px; /* Figma gap */
+  margin-top: 12px;
+}
+
+.modal__button-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px; /* matches Figma */
+  margin-top: 12px;
 }
 
 .modal__button-footer .modal__submit {
   flex: 1;
   margin-top: 0;
+}
+
+.modal__switch {
+  margin-top: 12px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  color: #555555;
+  cursor: pointer;
 }
 
 .modal__footer-text {
