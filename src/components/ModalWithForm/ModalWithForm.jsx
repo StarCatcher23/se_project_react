@@ -32,7 +32,9 @@ function ModalWithForm({
             <button type="submit" className="modal__submit">
               {isLoading ? "Saving..." : buttonText}
             </button>
-            {footerText && <p className="modal__footer-text">{footerText}</p>}
+            {footerText && (
+              <button className="modal__footer-text">{footerText}</button>
+            )}
           </div>
         </form>
       </div>

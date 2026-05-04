@@ -180,6 +180,7 @@ function App() {
       })
       .then((loginRes) => {
         localStorage.setItem("jwt", loginRes.token);
+        handleLogin(userData);
         setIsLoggedIn(true);
         closeActiveModal();
       })

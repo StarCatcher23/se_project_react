@@ -1,24 +1,36 @@
-import { useState, useContext, useEffect } from "react";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+import { useContext, useEffect } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./EditProfile.css";
 
 function EditProfileModal({ isOpen, onClose, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const { values, handleChange, errors, resetForm, isValid } =
+    useFormWithValidation({
+      name: "",
+      avatar: "",
+    });
 
-  // Pre-fill form when modal opens
   useEffect(() => {
-    if (currentUser && isOpen) {
-      setName(currentUser.name || "");
-      setAvatar(currentUser.avatar || "");
+    if (isOpen) {
+      resetForm(
+        {
+          name: currentUser?.name || "",
+          avatar: currentUser?.avatar || "",
+        },
+        {},
+        true,
+      );
     }
-  }, [currentUser, isOpen]);
+  }, [isOpen]); // ← ONLY depend on isOpen
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, avatar });
+    onSubmit({
+      name: values.name,
+      avatar: values.avatar,
+    });
   };
 
   return (
@@ -33,25 +45,33 @@ function EditProfileModal({ isOpen, onClose, onSubmit }) {
             Name
             <input
               type="text"
+              name="name"
               className="modal__input"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={values.name || ""}
+              onChange={handleChange}
               required
             />
+            <span className="modal__error">{errors.name}</span>
           </label>
 
           <label className="modal__label">
             Avatar URL
             <input
               type="url"
+              name="avatar"
               className="modal__input"
-              value={avatar}
-              onChange={(e) => setAvatar(e.target.value)}
+              value={values.avatar || ""}
+              onChange={handleChange}
               required
             />
+            <span className="modal__error">{errors.avatar}</span>
           </label>
 
-          <button type="submit" className="modal__submit-btn">
+          <button
+            type="submit"
+            className="modal__submit-btn"
+            disabled={!isValid}
+          >
             Save
           </button>
         </form>

@@ -167,6 +167,8 @@
 .modal__footer-text {
   font-size: 14px;
   color: #333;
+  background-color: #fff;
   margin: 0;
   white-space: nowrap;
+  border: none;
 }
