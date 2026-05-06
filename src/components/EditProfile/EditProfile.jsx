@@ -8,8 +8,8 @@ function EditProfileModal({ isOpen, onClose, onSubmit }) {
 
   const { values, handleChange, errors, resetForm, isValid } =
     useFormWithValidation({
-      name: "",
-      avatar: "",
+      name: currentUser?.name || "",
+      avatar: currentUser?.avatar || "",
     });
 
   useEffect(() => {

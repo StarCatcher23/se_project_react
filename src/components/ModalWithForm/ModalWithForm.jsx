@@ -11,6 +11,7 @@ function ModalWithForm({
   children,
   isLoading,
   footerText,
+  onSecondaryAction,
 }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
@@ -33,7 +34,16 @@ function ModalWithForm({
               {isLoading ? "Saving..." : buttonText}
             </button>
             {footerText && (
-              <button className="modal__footer-text">{footerText}</button>
+              <button
+                type="button" // ← MUST be here
+                className="modal__footer-text"
+                onClick={(e) => {
+                  e.stopPropagation(); // ← prevents bubbling
+                  onSecondaryAction();
+                }}
+              >
+                {footerText}
+              </button>
             )}
           </div>
         </form>

@@ -3,7 +3,13 @@ import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect } from "react";
 
-const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
+const RegisterModal = ({
+  isOpen,
+  onRegister,
+  onClose,
+  isLoading,
+  onOpenLogin,
+}) => {
   const defaultValues = {
     name: "",
     avatar: "",
@@ -33,6 +39,11 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
     }
   }
 
+  const handleSwitchToLogin = () => {
+    onClose(); // close Register
+    onOpenLogin(); // open Login
+  };
+
   return (
     <ModalWithForm
       title="Sign Up"
@@ -42,6 +53,7 @@ const RegisterModal = ({ isOpen, onRegister, onClose, isLoading }) => {
       isOpen={isOpen}
       onClose={onClose}
       footerText="or Log In"
+      onSecondaryAction={handleSwitchToLogin}
     >
       <label className="modal__label">
         Email

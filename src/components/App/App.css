@@ -1,8 +1,21 @@
 .page {
   background-color: #f3f3f3;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page__header-container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 32px auto 0;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .page__content {
+  flex: 1;
+  width: 100%;
   max-width: 1360px;
   margin: 0 auto;
 }

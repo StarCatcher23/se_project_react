@@ -3,7 +3,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect } from "react";
 import "./LoginModal.css";
 
-const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
+const LoginModal = ({ isOpen, onLogin, onClose, isLoading, onOpenRegister, }) => {
   const defaultValues = {
     email: "",
     password: "",
@@ -29,6 +29,12 @@ const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
     }
   }
 
+  const handleSwitchToRegister = () => {
+  onClose();            // close Login
+  onOpenRegister();     // open Register
+};
+
+
   return (
     <ModalWithForm
       title="Log In"
@@ -38,6 +44,7 @@ const LoginModal = ({ isOpen, onLogin, onClose, isLoading }) => {
       isOpen={isOpen}
       onClose={onClose}
       footerText="or Sign Up"
+      onSecondaryAction={handleSwitchToRegister}   // ← HERE
     >
       <label className="modal__label">
         Email

@@ -50,6 +50,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
+  const openLoginModal = () => setActiveModal("login");
+  const openRegisterModal = () => setActiveModal("register");
+  const openAddItemModal = () => setActiveModal("add-garment");
+  const openPreviewModal = () => setActiveModal("preview");
+
   // -----------------------------
   // Handlers
   // -----------------------------
@@ -293,7 +298,8 @@ function App() {
         value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <div className="page">
-          <div className="page__content">
+          {/* HEADER CONTAINER */}
+          <div className="page__header-container">
             <Header
               handleAddClick={handleAddClick}
               weatherData={weatherData}
@@ -301,7 +307,10 @@ function App() {
               onRegisterClick={() => setActiveModal("register")}
               isLoggedIn={isLoggedIn}
             />
+          </div>
 
+          {/* MAIN CONTENT */}
+          <div className="page__content">
             <Routes>
               <Route
                 path="/"
@@ -318,7 +327,6 @@ function App() {
                   )
                 }
               />
-
               <Route
                 path="/profile"
                 element={
@@ -335,43 +343,47 @@ function App() {
                 }
               />
             </Routes>
-
-            <Footer />
-
-            <AddItemModal
-              isOpen={activeModal === "add-garment"}
-              handleAddItem={handleAddItem}
-              onClose={closeActiveModal}
-              isLoading={isLoading}
-            />
-
-            <ItemModal
-              isOpen={activeModal === "preview"}
-              card={selectedCard}
-              onClose={closeActiveModal}
-              onDelete={handleDeleteItem}
-            />
-
-            <LoginModal
-              isOpen={activeModal === "login"}
-              onLogin={handleLogin}
-              onClose={closeActiveModal}
-              isLoading={isLoading}
-            />
-
-            <RegisterModal
-              isOpen={activeModal === "register"}
-              onRegister={handleRegister}
-              onClose={closeActiveModal}
-              isLoading={isLoading}
-            />
-
-            <EditProfileModal
-              isOpen={isEditProfileOpen}
-              onClose={closeActiveModal}
-              onSubmit={handleEditProfileSubmit}
-            />
           </div>
+
+          {/* FOOTER */}
+          <Footer />
+
+          {/* MODALS */}
+          <AddItemModal
+            isOpen={activeModal === "add-garment"}
+            handleAddItem={handleAddItem}
+            onClose={closeActiveModal}
+            isLoading={isLoading}
+          />
+
+          <ItemModal
+            isOpen={activeModal === "preview"}
+            card={selectedCard}
+            onClose={closeActiveModal}
+            onDelete={handleDeleteItem}
+          />
+
+          <LoginModal
+            isOpen={activeModal === "login"}
+            onLogin={handleLogin}
+            onClose={closeActiveModal}
+            isLoading={isLoading}
+            onOpenRegister={openRegisterModal} // ← HERE
+          />
+
+          <RegisterModal
+            isOpen={activeModal === "register"}
+            onRegister={handleRegister}
+            onClose={closeActiveModal}
+            isLoading={isLoading}
+            onOpenLogin={openLoginModal} // ← HERE
+          />
+
+          <EditProfileModal
+            isOpen={isEditProfileOpen}
+            onClose={closeActiveModal}
+            onSubmit={handleEditProfileSubmit}
+          />
         </div>
       </CurrentTemperatureUnitContext.Provider>
     </CurrentUserContext.Provider>

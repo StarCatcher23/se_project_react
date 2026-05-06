@@ -2,6 +2,7 @@ import "./ItemCard.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import likeButtonIcon from "../../assets/Likebutton.png";
+import filledHeartIcon from "../../assets/Likebutton_filled.png";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
@@ -42,7 +43,7 @@ function ItemCard({ item, onCardClick, onCardLike }) {
         >
           <img
             className="card__like-icon"
-            src={likeButtonIcon}
+            src={isLiked ? filledHeartIcon : likeButtonIcon}
             alt={isLiked ? "Liked" : "Not liked"}
           />
         </button>
