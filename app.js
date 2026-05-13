@@ -1,5 +1,3 @@
-// app.js — input file
-
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -8,6 +6,9 @@ const app = express();
 // connect to the MongoDB server
 mongoose.connect("mongodb://127.0.0.1:27017/mydb");
 
-// connect the middleware, routes, etc...
+// define the route your test expects
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
 
-app.listen(3001);
+module.exports = app;
