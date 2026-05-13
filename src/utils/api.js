@@ -1,6 +1,7 @@
 const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const headers = {
+  authorization: `Bearer ${localStorage.getItem("jwt")}`,
   "Content-Type": "application/json",
 };
 
@@ -17,7 +18,13 @@ function unwrapApiResponse(response) {
 }
 
 export const getItems = () => {
-  return request(`${baseUrl}/items`, { headers }).then(unwrapApiResponse);
+  const token = localStorage.getItem("jwt");
+  return request(`${baseUrl}/items`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(unwrapApiResponse);
 };
 
 export const addItem = (item, token) => {

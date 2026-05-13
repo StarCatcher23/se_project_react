@@ -19,7 +19,12 @@ export const login = ({ email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then(handleServerResponse);
+  })
+    .then(handleServerResponse)
+    .then((data) => {
+      localStorage.setItem("jwt", data.token);
+      return data;
+    });
 };
 
 export const checkToken = (token) => {
